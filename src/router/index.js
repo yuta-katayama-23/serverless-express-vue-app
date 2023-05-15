@@ -1,8 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
 import GlobalView from '@/views/GlobalView.vue';
-import HomeView from '@/views/HomeView.vue';
-import WelcomeView from '@/views/WelcomeView.vue';
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -12,12 +10,18 @@ const router = createRouter({
 			name: 'global',
 			component: GlobalView,
 			meta: { requiresAuth: true },
-			children: [{ path: '/', name: 'home', component: HomeView }]
+			children: [
+				{
+					path: '/',
+					name: 'home',
+					component: () => import('@/views/HomeView.vue')
+				}
+			]
 		},
 		{
 			path: '/welcome',
 			name: 'welcome',
-			component: WelcomeView
+			component: () => import('@/views/WelcomeView.vue')
 		},
 		{ path: '/:pathMatch(.*)*', redirect: { name: 'home', params: {} } }
 	]
