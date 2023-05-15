@@ -41,7 +41,7 @@ functions:
     environment:
       ENV: ${file(./env/${self:provider.stage}.json):ENV}
     events:
-      # HTTP API endpoint (API Gateway v2)
-      - httpApi:
+      # HTTP API endpoint (API Gateway v1) <- WAFを利用するため
+      - http:
           method: GET
           path: /{any+}
