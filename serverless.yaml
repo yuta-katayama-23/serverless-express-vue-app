@@ -1,0 +1,47 @@
+service: serverless-express-vue-app
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  region: ap-northeast-1
+  runtime: nodejs16.x
+  stage: ${opt:stage, self:custom.defaultStage}
+
+package:
+  patterns:
+    - dist
+    - srv/*
+    - package.json
+    - yarn.lock
+    - '!.github'
+    - '!.vscode'
+    - '!env'
+    - '!public'
+    - '!src'
+    - '!**.cjs'
+    - '!.prettierrc.json'
+    - '!index.html'
+    - '!jsconfig.json'
+    - '!README.md'
+    - '!renovate.json'
+    - '!vite.config.js'
+
+plugins:
+  - serverless-offline
+
+custom:
+  defaultStage: local
+
+functions:
+  sls-express:
+    name: sls-express-lambda-${sls:stage}
+    handler: ./srv/lambda.handler
+    timeout: 5
+    environment:
+      ENV: ${file(./env/${self:provider.stage}.json):ENV}
+    events:
+      # HTTP API endpoint (API Gateway v2)
+      - httpApi:
+          method: GET
+          path: /{any+}
