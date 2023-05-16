@@ -7,7 +7,7 @@ import { nodePolyfills } from 'vite-plugin-node-polyfills';
 import eslint from 'vite-plugin-eslint';
 
 // https://vitejs.dev/config/
-export default defineConfig({
+const options = {
 	plugins: [
 		nodePolyfills({ protocolImports: true }),
 		vue({ template: { transformAssetUrls } }),
@@ -23,4 +23,8 @@ export default defineConfig({
 		}
 	},
 	server: { host: '0.0.0.0', port: 8080 }
-});
+};
+if (process.env.NODE_ENV !== 'development')
+	options.base = process.env.NODE_ENV === 'local' ? '/local' : '/production';
+
+export default defineConfig(options);

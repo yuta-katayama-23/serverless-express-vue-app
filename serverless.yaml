@@ -41,7 +41,7 @@ functions:
     environment:
       ENV: ${file(./env/${self:provider.stage}.json):ENV}
     events:
-      # HTTP API endpoint (API Gateway v1) <- WAFを利用するため
+      # HTTP API endpoint (API Gateway v1) <- リソースポリシーでIP制限するため
       - http:
-          method: GET
-          path: /{any+}
+          method: get
+          path: /{proxy+}

@@ -11,8 +11,9 @@ const router = createRouter({
 			component: GlobalView,
 			meta: { requiresAuth: true },
 			children: [
+				{ path: '/', redirect: { name: 'home', params: {} } },
 				{
-					path: '/',
+					path: '/home',
 					name: 'home',
 					component: () => import('@/views/HomeView.vue')
 				}

@@ -6,6 +6,7 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite",
+		"build:local": "NODE_ENV=local vite build",
 		"build": "vite build",
 		"preview": "vite preview",
 		"express": "nodemon srv/app.local.js",
