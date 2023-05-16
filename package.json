@@ -13,7 +13,7 @@
 		"sls:dev": "sls offline start --host 0.0.0.0",
 		"sls:debug": "SLS_DEBUG=* && node --inspect node_modules/serverless/bin/serverless offline start  --host 0.0.0.0",
 		"sls:package": "sls package --stage production",
-		"sls:deploy": "sls deploy --stage production",
+		"sls:deploy": "sls deploy --stage production --param=ipaddress1=123.123.123.123",
 		"lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
 		"style": "prettier --ignore-unknown --write .",
 		"ncu": "npm-check-updates",

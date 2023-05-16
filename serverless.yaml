@@ -7,6 +7,19 @@ provider:
   region: ap-northeast-1
   runtime: nodejs16.x
   stage: ${opt:stage, self:custom.defaultStage}
+  apiGateway:
+    binaryMediaTypes:
+      - '*/*'
+    resourcePolicy:
+      - Effect: Allow
+        Principal: '*'
+        Action: execute-api:Invoke
+        Resource:
+          - execute-api:/*
+        Condition:
+          IpAddress:
+            aws:SourceIp:
+              - '${param:ipaddress1}'
 
 package:
   patterns:
@@ -44,4 +57,4 @@ functions:
       # HTTP API endpoint (API Gateway v1) <- リソースポリシーでIP制限するため
       - http:
           method: get
-          path: /{proxy+}
+          path: /{any+}
