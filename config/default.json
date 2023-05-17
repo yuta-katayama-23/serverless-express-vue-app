@@ -1,0 +1,18 @@
+{
+	"auth": {
+		"issure": "https://accounts.google.com",
+		"scopes": ["openid", "email", "profile"]
+	},
+	"dynamodb": {
+		"session": {
+			"name": "slsexp.sid",
+			"resave": false,
+			"saveUninitialized": false,
+			"cookie": {
+				"maxAge": 604800000,
+				"httpOnly": true,
+				"secure": true
+			}
+		}
+	}
+}

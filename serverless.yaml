@@ -7,6 +7,19 @@ provider:
   region: ap-northeast-1
   runtime: nodejs16.x
   stage: ${opt:stage, self:custom.defaultStage}
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:DescribeTable
+            - dynamodb:PutItem
+            - dynamodb:DeleteItem
+            - dynamodb:GetItem
+            - dynamodb:Scan
+            - dynamodb:UpdateItem
+          Resource:
+            - !GetAtt dynamodbSessionTable.Arn
   apiGateway:
     binaryMediaTypes:
       - '*/*'
@@ -23,6 +36,7 @@ provider:
 
 package:
   patterns:
+    - config
     - dist
     - srv/*
     - package.json
@@ -46,13 +60,36 @@ plugins:
 custom:
   defaultStage: local
 
+resources:
+  Resources:
+    dynamodbSessionTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: serverless-express-vue-app-sessions
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 5
+          WriteCapacityUnits: 5
+        TimeToLiveSpecification:
+          AttributeName: expires
+          Enabled: true
+
 functions:
   sls-express:
     name: sls-express-lambda-${sls:stage}
     handler: ./srv/lambda.handler
     timeout: 5
     environment:
-      ENV: ${file(./env/${self:provider.stage}.json):ENV}
+      NODE_ENV: ${file(./env/${self:provider.stage}.json):ENV}
+      CLIENT_ID: ${param:CLIENT_ID}
+      CLIENT_SECRET: ${param:CLIENT_SECRET}
+      REDIRECT_URI: ${param:REDIRECT_URI}
+      COOKIE_SECRET: ${param:COOKIE_SECRET}
     events:
       # HTTP API endpoint (API Gateway v1) <- リソースポリシーでIP制限するため
       - http:

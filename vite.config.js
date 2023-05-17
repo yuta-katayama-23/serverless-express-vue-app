@@ -22,9 +22,16 @@ const options = {
 			'@': fileURLToPath(new URL('./src', import.meta.url))
 		}
 	},
-	server: { host: '0.0.0.0', port: 8080 }
+	server: {
+		host: '0.0.0.0',
+		port: 8080,
+		proxy: {
+			'^/(api|auth)/': { target: 'http://localhost:3000', changeOrigin: false }
+		}
+	}
 };
 if (process.env.NODE_ENV !== 'development')
-	options.base = process.env.NODE_ENV === 'local' ? '/local' : '/production';
+	options.base =
+		process.env.NODE_ENV === 'localdev' ? '/localdev' : '/production';
 
 export default defineConfig(options);
