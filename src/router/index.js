@@ -51,8 +51,6 @@ router.beforeEach(async (to, from) => {
 	const commonStore = useCommonStore();
 	const { initCustomAxios } = commonStore;
 
-	console.log(import.meta.env.NODE_ENV);
-
 	if (to.meta.requiresAuth) {
 		try {
 			const {

@@ -21,12 +21,13 @@ router.get('/login', async (req, res) => {
 	const {
 		session,
 		app: {
-			locals: { authClient }
+			locals: { authClient, nodeEnv }
 		},
 		query: { url }
 	} = req;
 
-	if (session.userId) res.redirect('/home');
+	if (session.userId)
+		res.redirect(nodeEnv !== 'development' ? `/${nodeEnv}/home` : '/home');
 
 	const { authUrl, state, codeVerifier } = authClient.start();
 	if (url && url.startsWith('/') && !url.startsWith('/auth/login'))
@@ -47,7 +48,8 @@ router.get('/callback', async (req, res) => {
 	const { session } = req;
 	const {
 		errors: { HttpError },
-		authClient
+		authClient,
+		nodeEnv
 	} = req.app.locals;
 
 	try {
@@ -75,8 +77,8 @@ router.get('/callback', async (req, res) => {
 
 		return res.redirect(
 			`${
-				session.redirectUrl || process.env.NODE_ENV !== 'development'
-					? `/${process.env.NODE_ENV}/home`
+				session.redirectUrl || nodeEnv !== 'development'
+					? `/${nodeEnv}/home`
 					: '/home'
 			}`
 		);

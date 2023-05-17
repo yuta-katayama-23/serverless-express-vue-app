@@ -17,8 +17,8 @@ import consoleExpressRouting from './lib/console-express-routing.js';
 import createRoutes from './routes/index.js';
 
 const nodeEnv = process.env.NODE_ENV;
-const app = express();
 
+const app = express();
 app.set('trust proxy', 1);
 
 app.use(compression({ level: 1, memLevel: 3 }));
@@ -59,6 +59,7 @@ app.use((req, res, next) => {
 });
 
 const { locals } = app;
+locals.nodeEnv = nodeEnv;
 locals.errors = { HttpError: CustomHttpError };
 locals.authClient = await CustomOpenidClient.init({
 	...config.get('auth'),
