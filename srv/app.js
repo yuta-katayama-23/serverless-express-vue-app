@@ -17,7 +17,7 @@ import consoleExpressRouting from './lib/console-express-routing.js';
 import createRoutes from './routes/index.js';
 
 const nodeEnv = process.env.NODE_ENV;
-if (nodeEnv === 'development') dotenv();
+if (nodeEnv === 'development') dotenv.config();
 
 const app = express();
 app.set('trust proxy', 1);
