@@ -1,4 +1,4 @@
-import 'dotenv/config';
+import dotenv from 'dotenv';
 import express from 'express';
 import appRoot from 'app-root-path';
 import compression from 'compression';
@@ -17,6 +17,7 @@ import consoleExpressRouting from './lib/console-express-routing.js';
 import createRoutes from './routes/index.js';
 
 const nodeEnv = process.env.NODE_ENV;
+if (nodeEnv === 'development') dotenv();
 
 const app = express();
 app.set('trust proxy', 1);
