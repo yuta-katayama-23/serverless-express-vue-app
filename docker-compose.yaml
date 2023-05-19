@@ -18,3 +18,16 @@ services:
     volumes:
       - '${LOCALSTACK_VOLUME_DIR:-./data/localstack}:/var/lib/localstack'
       - '/var/run/docker.sock:/var/run/docker.sock'
+  mysql:
+    image: mysql:8.0.32
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ''
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      TZ: 'Asia/Tokyo'
+    ports:
+      - 3306:3306
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+      - ./mysql/sql:/docker-entrypoint-initdb.d
+      - ./mysql/my.cnf:/etc/mysql/conf.d/my.cnf
