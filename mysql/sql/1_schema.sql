@@ -65,6 +65,50 @@ CREATE TABLE `users` (
   UNIQUE KEY `email_idx` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Temporary view structure for view `v_todos`
+--
+
+DROP TABLE IF EXISTS `v_todos`;
+/*!50001 DROP VIEW IF EXISTS `v_todos`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `v_todos` AS SELECT 
+ 1 AS `id`,
+ 1 AS `title`,
+ 1 AS `content`,
+ 1 AS `is_complete`,
+ 1 AS `user_id`,
+ 1 AS `last_name`,
+ 1 AS `first_name`,
+ 1 AS `updated_at`,
+ 1 AS `created_at`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Current Database: `sls-express`
+--
+
+USE `sls-express`;
+
+--
+-- Final view structure for view `v_todos`
+--
+
+/*!50001 DROP VIEW IF EXISTS `v_todos`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`%` SQL SECURITY DEFINER */
+/*!50001 VIEW `v_todos` AS select `todos`.`id` AS `id`,`todos`.`title` AS `title`,`todos`.`content` AS `content`,`todos`.`is_complete` AS `is_complete`,`todos`.`user_id` AS `user_id`,`users`.`last_name` AS `last_name`,`users`.`first_name` AS `first_name`,`todos`.`updated_at` AS `updated_at`,`todos`.`created_at` AS `created_at` from (`todos` join `users` on((`todos`.`user_id` = `users`.`id`))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -75,4 +119,4 @@ CREATE TABLE `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-19 21:04:53
+-- Dump completed on 2023-05-22 20:02:09
