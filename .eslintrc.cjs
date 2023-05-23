@@ -25,6 +25,7 @@ module.exports = {
 	},
 	rules: {
 		'import/no-extraneous-dependencies': ['warn', { packageDir: './' }],
-		'import/extensions': 'off'
+		'import/extensions': 'off',
+		'import/no-unresolved': 'warn'
 	}
 };
