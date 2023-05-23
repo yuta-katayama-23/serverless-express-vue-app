@@ -40,6 +40,17 @@ export default class todo extends Model {
 					type: DataTypes.DATE,
 					allowNull: false,
 					defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+					get() {
+						return DateTime.fromJSDate(
+							this.getDataValue('updatedAt')
+						).toUnixInteger();
+					},
+					set(v) {
+						this.setDataValue(
+							'updatedAt',
+							v ? DateTime.fromSeconds(v).toFormat('yyyy-LL-dd HH:mm:ss') : null
+						);
+					},
 					field: 'updated_at'
 				},
 				createdAt: {

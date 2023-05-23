@@ -42,12 +42,34 @@ export default class user extends Model {
 				lastLoginedAt: {
 					type: DataTypes.DATE,
 					allowNull: true,
+					get() {
+						return DateTime.fromJSDate(
+							this.getDataValue('lastLoginedAt')
+						).toUnixInteger();
+					},
+					set(v) {
+						this.setDataValue(
+							'lastLoginedAt',
+							v ? DateTime.fromSeconds(v).toFormat('yyyy-LL-dd HH:mm:ss') : null
+						);
+					},
 					field: 'last_logined_at'
 				},
 				updatedAt: {
 					type: DataTypes.DATE,
 					allowNull: false,
 					defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+					get() {
+						return DateTime.fromJSDate(
+							this.getDataValue('updatedAt')
+						).toUnixInteger();
+					},
+					set(v) {
+						this.setDataValue(
+							'updatedAt',
+							v ? DateTime.fromSeconds(v).toFormat('yyyy-LL-dd HH:mm:ss') : null
+						);
+					},
 					field: 'updated_at'
 				},
 				createdAt: {
@@ -66,6 +88,57 @@ export default class user extends Model {
 						);
 					},
 					field: 'created_at'
+				},
+				accountType: {
+					type: DataTypes.VIRTUAL,
+					get() {
+						return this.getDataValue('accountTypeId') === '1'
+							? 'personal'
+							: 'business';
+					},
+					set(v) {
+						this.setDataValue('accountTypeId', v === 'personal' ? 1 : 2);
+					},
+					field: 'account_type'
+				},
+				gender: {
+					type: DataTypes.VIRTUAL,
+					get() {
+						switch (this.getDataValue('genderId')) {
+							case 1:
+								return 'male';
+							case 2:
+								return 'female';
+							case 3:
+								return 'notselect';
+							default:
+								return null;
+						}
+					},
+					set(v) {
+						switch (v) {
+							case 'male':
+								this.setDataValue('genderId', 1);
+								break;
+							case 'female':
+								this.setDataValue('genderId', 2);
+								break;
+							case 'notselect':
+								this.setDataValue('genderId', 3);
+								break;
+							default:
+								this.setDataValue('genderId', null);
+						}
+					}
+				},
+				fullName: {
+					type: DataTypes.VIRTUAL,
+					get() {
+						return `${this.getDataValue('firstName')} ${this.getDataValue(
+							'lastName'
+						)}`;
+					},
+					field: 'full_name'
 				}
 			},
 			{

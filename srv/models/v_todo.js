@@ -44,7 +44,11 @@ export default class vTodo extends Model {
 				updatedAt: {
 					type: DataTypes.DATE,
 					allowNull: false,
-					defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+					get() {
+						return DateTime.fromJSDate(
+							this.getDataValue('updatedAt')
+						).toUnixInteger();
+					},
 					field: 'updated_at'
 				},
 				createdAt: {
