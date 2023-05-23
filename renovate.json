@@ -75,7 +75,10 @@
 				"vue-i18n",
 				"vue-router",
 				"vuetify",
-				"webfontloader"
+				"webfontloader",
+				"mysql2",
+				"sequelize",
+				"sequelize-auto"
 			],
 			"rangeStrategy": "bump"
 		}
