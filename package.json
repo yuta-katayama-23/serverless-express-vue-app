@@ -17,6 +17,7 @@
 		"mysqldump:full": "docker exec -t mysql mysqldump -u root --databases sls-express > ./mysql/sql/full.sql",
 		"mysqldump:schema": "docker exec -t mysql mysqldump -u root --databases sls-express --no-data | sed -e 's/ AUTO_INCREMENT=[0-9]*//' > ./mysql/sql/1_schema.sql",
 		"mysqldump:data": "docker exec -t mysql mysqldump -u root -t --databases sls-express --no-create-db > ./mysql/sql/2_data.sql",
+		"models-auto": "rm -rf ./srv/models-auto/*.js && node support/sequelize-auto.js && npx eslint ./srv/models-auto --fix && npx prettier --ignore-unknown --write ./srv/models-auto",
 		"setup": "run-s aws.dynamodb.create-table aws.dynamodb.update-time-to-live",
 		"aws.dynamodb.create-table": "aws dynamodb create-table --table-name serverless-express-vue-app-sessions --attribute-definitions AttributeName=id,AttributeType=S --key-schema AttributeName=id,KeyType=HASH --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5 --endpoint=http://localhost:4566 --output text",
 		"aws.dynamodb.update-time-to-live": "aws dynamodb update-time-to-live --table-name serverless-express-vue-app-sessions --time-to-live-specification 'Enabled=true, AttributeName=expires' --endpoint=http://localhost:4566 --output text",
@@ -43,7 +44,9 @@
 		"lodash": "^4.17.21",
 		"luxon": "^3.3.0",
 		"make-error": "^1.3.6",
-		"openid-client": "^5.4.2"
+		"mysql2": "^3.3.1",
+		"openid-client": "^5.4.2",
+		"sequelize": "^6.31.1"
 	},
 	"devDependencies": {
 		"@commitlint/cli": "^17.6.3",
@@ -69,6 +72,7 @@
 		"prettier": "^2.8.8",
 		"qs": "^6.11.2",
 		"sass": "^1.62.1",
+		"sequelize-auto": "^0.8.8",
 		"serverless": "^3.30.1",
 		"serverless-offline": "^12.0.4",
 		"simple-git-hooks": "^2.8.1",
