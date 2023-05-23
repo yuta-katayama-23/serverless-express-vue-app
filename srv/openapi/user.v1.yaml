@@ -1,0 +1,319 @@
+openapi: 3.0.0
+info:
+  title: User API
+  description: ユーザー管理API
+  version: '1.0'
+  contact:
+    name: yuta-katayama-23
+    email: yuta-katayama-23@example.com
+servers:
+  - url: 'http://localhost:3000'
+    description: local development
+tags:
+  - name: User API
+  - name: public
+paths:
+  /api/v1/user:
+    get:
+      summary: ユーザー情報取得API
+      operationId: get-api-v1-user
+      description: 自身のユーザー情報を取得します。
+      tags:
+        - User API
+        - public
+      security:
+        - Bearer: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/user'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+        '401':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+        '403':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+        '409':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+        '415':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+    patch:
+      summary: ユーザ情報更新API
+      operationId: patch-api-v1-user
+      description: |-
+        自身のユーザーの情報を更新することができます。  
+        ※ただしメールアドレスの更新はできません。
+      tags:
+        - User API
+        - public
+      security:
+        - Bearer: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/update_user'
+        description: ''
+      responses:
+        '200':
+          description: User Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+        '401':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+        '403':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+        '409':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+        '415':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+    delete:
+      summary: ユーザー情報削除API（退会API）
+      operationId: delete-api-v1-user
+      description: |-
+        自身のユーザー情報をシステムから削除します。  
+        ※削除は物理削除になります。
+      tags:
+        - User API
+        - public
+      security:
+        - Bearer: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                account_id:
+                  type: string
+                  description: アカウントID
+                  example: 8f6bcd4
+                  minimum: 1
+                  pattern: '^[A-Za-z0-9]+$'
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+        '401':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+        '403':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+        '409':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+        '415':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+components:
+  schemas:
+    base_user:
+      title: base_user
+      type: object
+      description: ''
+      properties:
+        account_type:
+          type: string
+          description: アカウント種別
+          enum:
+            - personal
+            - business
+          example: personal
+        email:
+          type: string
+          format: email
+          example: sample@example.com
+          description: メールアドレス
+          maxLength: 128
+          minLength: 1
+        full_name:
+          type: string
+          minLength: 1
+          example: 山田 太郎
+          description: フルネーム
+          nullable: true
+        last_name:
+          type: string
+          description: 名前
+          minLength: 1
+          example: 太郎
+          nullable: true
+        first_name:
+          type: string
+          description: 苗字
+          example: 山田
+          minLength: 1
+          maxLength: 128
+          nullable: true
+        gender:
+          type: string
+          description: 性別
+          enum:
+            - male
+            - female
+            - notselect
+          example: male
+        last_logined_at:
+          type: integer
+          description: 最終ログイン日時（UNIX TIME：秒）
+          format: int64
+          minimum: 1600000000
+          example: 1600000000
+        updated_at:
+          type: integer
+          description: 更新日時（UNIX TIME：秒）
+          example: 1639444400
+          minimum: 1600000000
+          format: int64
+          readOnly: true
+        created_at:
+          type: integer
+          format: int64
+          description: 作成日時（UNIX TIME：秒）
+          example: 1639444400
+          minimum: 1600000000
+          readOnly: true
+    user:
+      title: user
+      additionalProperties: false
+      properties:
+        account_type: {}
+        email: {}
+        full_name: {}
+        last_name: {}
+        first_name: {}
+        gender: {}
+        last_logined_at: {}
+        updated_at: {}
+        created_at: {}
+      allOf:
+        - $ref: '#/components/schemas/base_user'
+      required:
+        - account_type
+        - email
+        - full_name
+        - last_name
+        - first_name
+        - gender
+        - last_logined_at
+        - updated_at
+        - created_at
+    update_user:
+      title: update_user
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        last_name: {}
+        first_name: {}
+        gender: {}
+      allOf:
+        - $ref: '#/components/schemas/base_user'
+  securitySchemes:
+    Bearer:
+      type: http
+      scheme: bearer
+      description: |-
+        ログイン済みの状態で以下パスの呼び出しで取得されるトークン  
+        GET:/auth/token

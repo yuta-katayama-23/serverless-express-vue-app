@@ -1,0 +1,459 @@
+openapi: 3.0.0
+info:
+  title: Todo API
+  description: Todo管理API
+  version: '1.0'
+  contact:
+    name: yuta-katayama-23
+    email: yuta-katayama-23@example.com
+servers:
+  - url: 'http://localhost:3000'
+    description: local development
+tags:
+  - name: Todo API
+  - name: public
+paths:
+  /api/v1/todos:
+    parameters: []
+    get:
+      summary: Todo情報一覧取得API
+      operationId: get-api-v1-todos
+      description: 自身のTodo情報一覧を取得します。
+      tags:
+        - Todo API
+        - public
+      security:
+        - Bearer: []
+      parameters:
+        - schema:
+            type: integer
+            format: int32
+            example: 100
+            minimum: 1
+            maximum: 1000
+            default: 100
+          in: query
+          name: limit
+          description: データ取得上限数
+        - schema:
+            type: integer
+            format: int32
+            example: 10
+            minimum: 0
+          in: query
+          name: offset
+          description: データ取得開始位置
+        - schema:
+            type: boolean
+            example: true
+          in: query
+          name: only_uncompleted
+          description: 未完了のみ取得フラグ
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                    description: トータル数
+                    minimum: 0
+                    example: 1
+                    format: int32
+                  todos:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/todo'
+                required:
+                  - total
+                  - todos
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+        '401':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+        '403':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+        '409':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+        '415':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+  '/api/v1/todo/{todo_id}':
+    parameters:
+      - schema:
+          type: integer
+          format: int32
+          minimum: 1
+          example: 1
+        name: todo_id
+        in: path
+        required: true
+        description: TodoID
+    get:
+      summary: Todo情報取得API
+      operationId: get-api-v1-todo-todo_id
+      description: Todo情報を取得します（自身が作成したTodoのみ参照可能です）。
+      tags:
+        - Todo API
+        - public
+      security:
+        - Bearer: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/todo'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+        '401':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+        '403':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+        '409':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+        '415':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+    patch:
+      summary: Todo情報更新API
+      operationId: patch-api-v1-todo-todo_id
+      description: Todo情報を更新します（自身が作成したTodoのみ更新可能です）。
+      tags:
+        - Todo API
+        - public
+      security:
+        - Bearer: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/update_todo'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/todo'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+        '401':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+        '403':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+        '409':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+        '415':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+    delete:
+      summary: Todo削除API
+      operationId: delete-api-v1-todo-todo_id
+      description: Todoを削除します（自身が作成したTodoのみ削除可能です）。
+      tags:
+        - Todo API
+        - public
+      security:
+        - Bearer: []
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+        '401':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+        '403':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+        '409':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+        '415':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+  /api/v1/todo:
+    post:
+      summary: Todo新規作成API
+      operationId: post-api-v1-todo
+      description: Todoを新規に作成します。
+      tags:
+        - Todo API
+        - public
+      security:
+        - Bearer: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/create_todo'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/todo'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+        '401':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+        '403':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+        '409':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+        '415':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: ./error.v1.yaml
+components:
+  schemas:
+    base_todo:
+      title: base_todo
+      type: object
+      description: ''
+      properties:
+        id:
+          type: integer
+          description: TodoID
+          format: int32
+          example: 1
+          minimum: 1
+          readOnly: true
+        title:
+          type: string
+          description: Todo名
+          example: 牛乳を買う
+          minLength: 1
+          maxLength: 32
+        content:
+          type: string
+          description: Todoの詳細
+          example: イオンのセールで買う
+          minLength: 1
+          maxLength: 256
+          nullable: true
+        is_complete:
+          type: boolean
+          description: 完了フラグ
+          example: false
+        updated_at:
+          type: integer
+          description: 更新日時（UNIX TIME：秒）
+          example: 1639444400
+          minimum: 1600000000
+          format: int64
+          readOnly: true
+        created_at:
+          type: integer
+          format: int64
+          description: 作成日時（UNIX TIME：秒）
+          example: 1639444400
+          minimum: 1600000000
+          readOnly: true
+    todo:
+      title: todo
+      type: object
+      additionalProperties: false
+      properties:
+        id: {}
+        title: {}
+        content: {}
+        is_complete: {}
+        updated_at: {}
+        created_at: {}
+      allOf:
+        - $ref: '#/components/schemas/base_todo'
+      required:
+        - id
+        - title
+        - content
+        - is_complete
+        - updated_at
+        - created_at
+    create_todo:
+      title: create_todo
+      type: object
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        title: {}
+        content: {}
+      allOf:
+        - $ref: '#/components/schemas/base_todo'
+      required:
+        - title
+    update_todo:
+      title: update_todo
+      type: object
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        title: {}
+        content: {}
+        is_complete: {}
+      allOf:
+        - $ref: '#/components/schemas/base_todo'
+  securitySchemes:
+    Bearer:
+      type: http
+      scheme: bearer
+      description: |-
+        ログイン済みの状態で以下パスの呼び出しで取得されるトークン  
+        GET:/auth/token
