@@ -34,12 +34,17 @@
 				"dotenv",
 				"express",
 				"express-cache-response-directive",
+				"express-openapi-validator",
 				"express-session",
 				"helmet",
 				"lodash",
 				"luxon",
 				"make-error",
+				"mysql2",
 				"openid-client",
+				"sequelize",
+				"snakecase-keys",
+
 				"@commitlint/cli",
 				"@commitlint/config-conventional",
 				"@mdi/font",
@@ -63,10 +68,10 @@
 				"prettier",
 				"qs",
 				"sass",
+				"sequelize-auto",
 				"serverless",
 				"serverless-offline",
 				"simple-git-hooks",
-				"snakecase-keys",
 				"vite",
 				"vite-plugin-eslint",
 				"vite-plugin-node-polyfills",
@@ -75,10 +80,7 @@
 				"vue-i18n",
 				"vue-router",
 				"vuetify",
-				"webfontloader",
-				"mysql2",
-				"sequelize",
-				"sequelize-auto"
+				"webfontloader"
 			],
 			"rangeStrategy": "bump"
 		}
