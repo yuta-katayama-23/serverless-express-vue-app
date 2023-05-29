@@ -20,7 +20,8 @@ export default () => (req, res, next) => {
 
 		if (error.status) res.status(error.status);
 		if (!res.statusCode) res.status(500);
-		// TODO 409エラー対応（Sequlizeなどのエラーに基づき）
+		// Sequelize(仕様変更に要注意)
+		if (error.name === 'SequelizeUniqueConstraintError') res.status(409);
 
 		const code = crypto
 			.createHash('md5')
