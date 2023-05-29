@@ -52,7 +52,7 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `users` (
-  `id` int unsigned NOT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `account_type_id` tinyint NOT NULL COMMENT '1:personal, 2:business',
   `email` varchar(128) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
   `last_name` varchar(32) COLLATE utf8mb4_general_ci DEFAULT NULL,
@@ -119,4 +119,4 @@ USE `sls-express`;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-22 20:02:09
+-- Dump completed on 2023-05-29  8:50:16

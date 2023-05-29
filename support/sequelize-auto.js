@@ -4,7 +4,10 @@ import SequelizeAuto from 'sequelize-auto';
 import Sequelize from 'sequelize';
 import { DateTime } from 'luxon';
 
-const sequelize = new Sequelize(config.get('sequelize'));
+const sequelize = new Sequelize({
+	...config.get('sequelize.base'),
+	...config.get('sequelize.local')
+});
 
 const auto = new SequelizeAuto(sequelize, null, null, {
 	directory: appRoot.resolve('/srv/models-auto'),
