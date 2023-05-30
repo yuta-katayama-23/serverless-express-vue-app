@@ -23,6 +23,10 @@ module.exports = {
 			}
 		}
 	},
+	overrides: [
+		{ files: ['__tests__/**/*.js'], extends: ['plugin:vitest/recommended'] },
+		{ files: ['cypress/**/*.js'], extends: ['plugin:cypress/recommended'] }
+	],
 	rules: {
 		'import/no-extraneous-dependencies': ['warn', { packageDir: './' }],
 		'import/extensions': 'off',
