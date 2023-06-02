@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -28,3 +28,6 @@ jobs:
 
       - name: build
         run: yarn build
+
+      - name: test
+        run: yarn vitest:only:lib
