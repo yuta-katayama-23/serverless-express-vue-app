@@ -14,7 +14,7 @@
 		"express:run": "NODE_ENV=development node srv/app.local.js",
 		"cy:run": "cypress run",
 		"vitest": "vitest run",
-		"vitest:only:lib": "vitest run lib/**/*.spec.js --coverage",
+		"vitest:only:lib": "vitest run __tests__/lib/* --coverage",
 		"sls:dev": "sls offline start --stage localdev --host 0.0.0.0 --httpPort 8080 --param=ipaddress1=123.123.123.123 --param=CLIENT_ID=CLIENT_ID --param=CLIENT_SECRET=CLIENT_SECRET --param=REDIRECT_URI=REDIRECT_URI --param=COOKIE_SECRET=COOKIE_SECRET",
 		"sls:debug": "SLS_DEBUG=* && node --inspect node_modules/serverless/bin/serverless offline start  --host 0.0.0.0",
 		"sls:package": "sls package --stage production",
