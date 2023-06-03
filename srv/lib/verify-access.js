@@ -34,11 +34,8 @@ export default () => async (req, res, next) => {
 			userId: session.userId || null,
 			email: session.email
 		};
+		next();
 	} catch (e) {
-		return res.status(500).error(e);
+		res.status(500).error(e);
 	}
-
-	console.log(await retriveSession('x5AILpmnrHJy7OPK0h5Tw4AcAEQxXnfs', store));
-
-	return next();
 };
