@@ -122,7 +122,11 @@ describe('spy function with valid session', () => {
 		const next = vi.fn();
 		await reqHander(req, res, next);
 		expect(next).toHaveBeenCalled();
-		expect(req.token).toEqual({ userId: 1, email: 'sample@example.com' });
+		expect(req.token).toEqual({
+			sid: '123',
+			userId: 1,
+			email: 'sample@example.com'
+		});
 	});
 
 	test('valid session with session.userId is null and originalUrl is /api/v1/signup', async () => {
@@ -141,7 +145,11 @@ describe('spy function with valid session', () => {
 		const next = vi.fn();
 		await reqHander(req, res, next);
 		expect(next).toHaveBeenCalled();
-		expect(req.token).toEqual({ userId: null, email: 'sample@example.com' });
+		expect(req.token).toEqual({
+			sid: '123',
+			userId: null,
+			email: 'sample@example.com'
+		});
 	});
 });
 
