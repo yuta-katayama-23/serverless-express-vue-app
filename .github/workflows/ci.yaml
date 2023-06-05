@@ -30,4 +30,4 @@ jobs:
         run: yarn build
 
       - name: test
-        run: yarn vitest:only:lib
+        run: yarn vitest:lib
