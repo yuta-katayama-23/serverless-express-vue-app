@@ -46,7 +46,7 @@ package:
     - '!env'
     - '!public'
     - '!src'
-    - '.env'
+    - '!.env'
     - '!**.cjs'
     - '!.prettierrc.json'
     - '!index.html'

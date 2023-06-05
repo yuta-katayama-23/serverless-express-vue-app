@@ -31,6 +31,7 @@ export default () => async (req, res, next) => {
 			throw new HttpError(401, `invalid session`);
 
 		req.token = {
+			sid,
 			userId: session.userId || null,
 			email: session.email
 		};

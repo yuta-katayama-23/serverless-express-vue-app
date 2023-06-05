@@ -93,7 +93,7 @@ export default class user extends Model {
 				accountType: {
 					type: DataTypes.VIRTUAL,
 					get() {
-						return this.getDataValue('accountTypeId') === '1'
+						return this.getDataValue('accountTypeId') === 1
 							? 'personal'
 							: 'business';
 					},

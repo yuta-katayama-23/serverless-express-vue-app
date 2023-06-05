@@ -28,7 +28,9 @@ export default (options = {}) => {
 		apiSpec: appRoot.resolve(apiSpec),
 		validateRequests: true,
 		validateResponses: true,
-		ignorePaths: (p) => !p.startsWith(basePath)
+		ignorePaths: (p) => !p.startsWith(basePath),
+		// https://github.com/cdimascio/express-openapi-validator/wiki/Documentation#%EF%B8%8F-refparsermode-optional
+		$refParser: { mode: 'dereference' }
 	});
 
 	middleware.push(reqCaseConverter(basePath));

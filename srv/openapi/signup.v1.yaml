@@ -1,0 +1,189 @@
+openapi: 3.0.0
+info:
+  title: Signup API
+  description: サインアップAPI
+  version: '1.0'
+  contact:
+    name: yuta-katayama-23
+    email: yuta-katayama-23@example.com
+servers:
+  - url: 'http://localhost:3000'
+    description: local development
+tags:
+  - name: Signup API
+  - name: public
+paths:
+  /api/v1/signup:
+    post:
+      summary: 新規ユーザー登録API
+      operationId: get-api-v1-signup
+      description: 新規にユーザー情報を登録します。
+      tags:
+        - Signup API
+        - public
+      security:
+        - Bearer: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/signup_user'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: './error.v1.yaml#/components/schemas/error'
+        '401':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: './error.v1.yaml#/components/schemas/error'
+        '403':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: './error.v1.yaml#/components/schemas/error'
+        '409':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: './error.v1.yaml#/components/schemas/error'
+        '415':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: './error.v1.yaml#/components/schemas/error'
+        '500':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: './error.v1.yaml#/components/schemas/error'
+components:
+  schemas:
+    base_user:
+      title: base_user
+      type: object
+      description: ''
+      properties:
+        account_type:
+          type: string
+          description: アカウント種別
+          enum:
+            - personal
+            - business
+          example: personal
+        email:
+          type: string
+          format: email
+          example: sample@example.com
+          description: メールアドレス
+          maxLength: 128
+          minLength: 1
+          readOnly: true
+        full_name:
+          type: string
+          minLength: 1
+          example: 山田 太郎
+          description: フルネーム
+          nullable: true
+          readOnly: true
+        last_name:
+          type: string
+          description: 名前
+          minLength: 1
+          example: 太郎
+          nullable: true
+        first_name:
+          type: string
+          description: 苗字
+          example: 山田
+          minLength: 1
+          maxLength: 128
+          nullable: true
+        gender:
+          type: string
+          description: 性別
+          enum:
+            - male
+            - female
+            - notselect
+          example: male
+        last_logined_at:
+          type: integer
+          description: 最終ログイン日時（UNIX TIME：秒）
+          format: int64
+          minimum: 1600000000
+          example: 1600000000
+          readOnly: true
+        updated_at:
+          type: integer
+          description: 更新日時（UNIX TIME：秒）
+          example: 1639444400
+          minimum: 1600000000
+          format: int64
+          readOnly: true
+        created_at:
+          type: integer
+          format: int64
+          description: 作成日時（UNIX TIME：秒）
+          example: 1639444400
+          minimum: 1600000000
+          readOnly: true
+    signup_user:
+      title: signup_user
+      additionalProperties: false
+      properties:
+        account_type: {}
+        last_name: {}
+        first_name: {}
+        gender: {}
+      allOf:
+        - $ref: '#/components/schemas/base_user'
+      required:
+        - account_type
+        - gender
+    user:
+      title: user
+      additionalProperties: false
+      properties:
+        account_type: {}
+        email: {}
+        full_name: {}
+        last_name: {}
+        first_name: {}
+        gender: {}
+        last_logined_at: {}
+        updated_at: {}
+        created_at: {}
+      allOf:
+        - $ref: '#/components/schemas/base_user'
+      required:
+        - account_type
+        - email
+        - full_name
+        - last_name
+        - first_name
+        - gender
+        - last_logined_at
+        - updated_at
+        - created_at
+  securitySchemes:
+    Bearer:
+      type: http
+      scheme: bearer
+      description: |-
+        ログイン済みの状態で以下パスの呼び出しで取得されるトークン  
+        GET:/auth/token

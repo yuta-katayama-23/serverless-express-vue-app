@@ -4,6 +4,7 @@ import appRoot from 'app-root-path';
 import compression from 'compression';
 import helmet from 'helmet';
 import cacheResponseDirective from 'express-cache-response-directive';
+import Sequelize from 'sequelize';
 
 import expressSession from 'express-session';
 import connectDynamodb from 'connect-dynamodb';
@@ -15,6 +16,7 @@ import CustomOpenidClient from './lib/custom-openid-client.js';
 import errorResponse from './lib/error-response.js';
 import consoleExpressRouting from './lib/console-express-routing.js';
 import createRoutes from './routes/index.js';
+import initModels from './models/init-models.js';
 
 const nodeEnv = process.env.NODE_ENV;
 if (nodeEnv === 'development') dotenv.config();
@@ -59,6 +61,17 @@ app.use((req, res, next) => {
 	next();
 });
 
+const sequelize = new Sequelize(
+	nodeEnv === 'development' || nodeEnv === 'localdev'
+		? { ...config.get('sequelize.base'), ...config.get('sequelize.local') }
+		: {
+				// FIXME AWS環境に合わせて修正
+				...config.get('sequelize.base'),
+				username: '',
+				password: '',
+				host: ''
+		  }
+);
 const { locals } = app;
 locals.nodeEnv = nodeEnv;
 locals.errors = { HttpError: CustomHttpError };
@@ -68,6 +81,8 @@ locals.authClient = await CustomOpenidClient.init({
 	client_secret: process.env.CLIENT_SECRET,
 	redirect_uri: process.env.REDIRECT_URI
 });
+locals.sequelize = sequelize;
+locals.models = initModels(sequelize);
 
 const routes = await createRoutes();
 Object.keys(routes).forEach((route) => {

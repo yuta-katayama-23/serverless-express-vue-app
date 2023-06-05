@@ -91,9 +91,7 @@ Object.keys(td.tables).forEach((tableName) => {
 	if (columns.account_type_id) {
 		columns.account_type = { type: 'DataTypes.VIRTUAL' };
 		columns.account_type.get = function () {
-			return this.getDataValue('accountTypeId') === '1'
-				? 'personal'
-				: 'business';
+			return this.getDataValue('accountTypeId') === 1 ? 'personal' : 'business';
 		};
 		if (!isView) {
 			columns.account_type.set = function (v) {

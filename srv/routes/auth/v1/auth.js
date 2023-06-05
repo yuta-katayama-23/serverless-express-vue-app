@@ -56,7 +56,7 @@ router.get('/callback', async (req, res) => {
 		if (session.state !== req.query.state)
 			throw new HttpError(400, 'Invalid state.');
 
-		const { email, name } = await authClient.callback({
+		const { email } = await authClient.callback({
 			req,
 			state: session.state,
 			codeVerifier: session.codeVerifier
@@ -68,7 +68,6 @@ router.get('/callback', async (req, res) => {
 					if (err) throw reject(err);
 					const { session: newSession } = req;
 					newSession.email = email;
-					newSession.name = name;
 					resolve(newSession);
 				});
 			});
@@ -77,9 +76,8 @@ router.get('/callback', async (req, res) => {
 
 		return res.redirect(
 			`${
-				session.redirectUrl || nodeEnv !== 'development'
-					? `/${nodeEnv}/home`
-					: '/home'
+				session.redirectUrl ||
+				(nodeEnv !== 'development' ? `/${nodeEnv}/home` : '/home')
 			}`
 		);
 	} catch (e) {

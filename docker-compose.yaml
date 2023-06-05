@@ -5,6 +5,8 @@ services:
     container_name: nginx
     ports:
       - 443:443
+    environment:
+      TZ: 'Asia/Tokyo'
     volumes:
       - ./config/nginx:/etc/nginx/conf.d
       - ./data/nginx:/var/log/nginx

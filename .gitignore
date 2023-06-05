@@ -43,3 +43,4 @@ data
 
 .env
 srv/models-auto/*.js
+__tests__/token.json

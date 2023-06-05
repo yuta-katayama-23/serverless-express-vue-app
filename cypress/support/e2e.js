@@ -18,3 +18,10 @@ import './commands';
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+
+// https://docs.cypress.io/api/cypress-api/catalog-of-events#Uncaught-Exceptions
+// eslint-disable-next-line no-unused-vars
+Cypress.on('uncaught:exception', (err, runnable) => {
+	if (err.message.includes('ResizeObserver loop limit exceeded')) return false;
+	return true;
+});

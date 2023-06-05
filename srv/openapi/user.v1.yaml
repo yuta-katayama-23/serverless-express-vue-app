@@ -32,47 +32,47 @@ paths:
                 allOf:
                   - $ref: '#/components/schemas/user'
         '400':
-          description: Bad Request
+          description: ''
           content:
             application/json:
               schema:
-                $ref: ./error.v1.yaml
+                $ref: './error.v1.yaml#/components/schemas/error'
         '401':
-          description: Bad Request
+          description: ''
           content:
             application/json:
               schema:
-                $ref: ./error.v1.yaml
+                $ref: './error.v1.yaml#/components/schemas/error'
         '403':
-          description: Bad Request
+          description: ''
           content:
             application/json:
               schema:
-                $ref: ./error.v1.yaml
+                $ref: './error.v1.yaml#/components/schemas/error'
         '404':
-          description: Not Found
+          description: ''
           content:
             application/json:
               schema:
-                $ref: ./error.v1.yaml
+                $ref: './error.v1.yaml#/components/schemas/error'
         '409':
-          description: Not Found
+          description: ''
           content:
             application/json:
               schema:
-                $ref: ./error.v1.yaml
+                $ref: './error.v1.yaml#/components/schemas/error'
         '415':
-          description: Not Found
+          description: ''
           content:
             application/json:
               schema:
-                $ref: ./error.v1.yaml
+                $ref: './error.v1.yaml#/components/schemas/error'
         '500':
-          description: Internal Server Error
+          description: ''
           content:
             application/json:
               schema:
-                $ref: ./error.v1.yaml
+                $ref: './error.v1.yaml#/components/schemas/error'
     patch:
       summary: ユーザ情報更新API
       operationId: patch-api-v1-user
@@ -98,47 +98,47 @@ paths:
               schema:
                 $ref: '#/components/schemas/user'
         '400':
-          description: Bad Request
+          description: ''
           content:
             application/json:
               schema:
-                $ref: ./error.v1.yaml
+                $ref: './error.v1.yaml#/components/schemas/error'
         '401':
-          description: Bad Request
+          description: ''
           content:
             application/json:
               schema:
-                $ref: ./error.v1.yaml
+                $ref: './error.v1.yaml#/components/schemas/error'
         '403':
-          description: Bad Request
+          description: ''
           content:
             application/json:
               schema:
-                $ref: ./error.v1.yaml
+                $ref: './error.v1.yaml#/components/schemas/error'
         '404':
-          description: Not Found
+          description: ''
           content:
             application/json:
               schema:
-                $ref: ./error.v1.yaml
+                $ref: './error.v1.yaml#/components/schemas/error'
         '409':
-          description: Not Found
+          description: ''
           content:
             application/json:
               schema:
-                $ref: ./error.v1.yaml
+                $ref: './error.v1.yaml#/components/schemas/error'
         '415':
-          description: Not Found
+          description: ''
           content:
             application/json:
               schema:
-                $ref: ./error.v1.yaml
+                $ref: './error.v1.yaml#/components/schemas/error'
         '500':
-          description: Internal Server Error
+          description: ''
           content:
             application/json:
               schema:
-                $ref: ./error.v1.yaml
+                $ref: './error.v1.yaml#/components/schemas/error'
     delete:
       summary: ユーザー情報削除API（退会API）
       operationId: delete-api-v1-user
@@ -150,63 +150,51 @@ paths:
         - public
       security:
         - Bearer: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                account_id:
-                  type: string
-                  description: アカウントID
-                  example: 8f6bcd4
-                  minimum: 1
-                  pattern: '^[A-Za-z0-9]+$'
       responses:
         '204':
           description: No Content
         '400':
-          description: Bad Request
+          description: ''
           content:
             application/json:
               schema:
-                $ref: ./error.v1.yaml
+                $ref: './error.v1.yaml#/components/schemas/error'
         '401':
-          description: Bad Request
+          description: ''
           content:
             application/json:
               schema:
-                $ref: ./error.v1.yaml
+                $ref: './error.v1.yaml#/components/schemas/error'
         '403':
-          description: Bad Request
+          description: ''
           content:
             application/json:
               schema:
-                $ref: ./error.v1.yaml
+                $ref: './error.v1.yaml#/components/schemas/error'
         '404':
-          description: Not Found
+          description: ''
           content:
             application/json:
               schema:
-                $ref: ./error.v1.yaml
+                $ref: './error.v1.yaml#/components/schemas/error'
         '409':
-          description: Not Found
+          description: ''
           content:
             application/json:
               schema:
-                $ref: ./error.v1.yaml
+                $ref: './error.v1.yaml#/components/schemas/error'
         '415':
-          description: Not Found
+          description: ''
           content:
             application/json:
               schema:
-                $ref: ./error.v1.yaml
+                $ref: './error.v1.yaml#/components/schemas/error'
         '500':
-          description: Internal Server Error
+          description: ''
           content:
             application/json:
               schema:
-                $ref: ./error.v1.yaml
+                $ref: './error.v1.yaml#/components/schemas/error'
 components:
   schemas:
     base_user:
