@@ -4,14 +4,58 @@
 
 - dynamodb.session.cookie.maxAge: 7 days(24h × 60m × 60s × 1000ms)
 
-## development
+## 開発
 
-- ローカル環境でサーバーレスアプリケーションとして立ち上げる場合
-  - `.env`の`REDIRECT_URI=https://example.com/localdev/auth/callback`にする
+### Vite の dev サーバー × nodemon で Express
 
-## test
+最も基本形の開発
 
-### on local
+- yarn dev
+- yarn express
+- `.env`に以下の定数の設定が必要
+  - CLIENT_ID
+  - CLIENT_SECRET
+  - REDIRECT_URI
+  - COOKIE_SECRET
+
+### ビルド済みの Vue × nodemon で Express
+
+バックエンドのみ開発する場合
+
+- yarn build:dev
+- yarn express
+- `.env`に以下の定数の設定が必要
+  - CLIENT_ID
+  - CLIENT_SECRET
+  - REDIRECT_URI
+  - COOKIE_SECRET
+
+### ビルド済みの Vue × Express
+
+Cypress での認証突破後に、自動テストの API テストを流す場合
+
+- yarn build:dev
+- yarn express:run:test
+- `.env`に以下の定数の設定が必要
+  - CLIENT_ID
+  - CLIENT_SECRET
+  - REDIRECT_URI
+  - COOKIE_SECRET
+
+### ビルド済みの Vue × serverless の Express
+
+- yarn build:localdev
+- yarn sls:dev
+- `yarn sls:dev`のコマンドオプションに以下が必要
+  - --param=ipaddress1
+  - --param=CLIENT_ID
+  - --param=CLIENT_SECRET
+  - --param=REDIRECT_URI
+  - --param=COOKIE_SECRET
+
+## テスト
+
+### ローカル環境でテストをする時の注意
 
 - Google のクライアント情報の`承認済みの JavaScript 生成元`と`承認済みのリダイレクト URI`にそれぞれ以下を設定
   - 承認済みの JavaScript 生成元：https://localhost
