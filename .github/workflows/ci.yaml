@@ -12,6 +12,10 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+
+    env:
+      NGINX_DIR: ./config/for_ci_nginx
+
     steps:
       - uses: actions/checkout@v3
 
@@ -30,9 +34,7 @@ jobs:
         run: yarn build:dev
 
       - name: docker compose up
-        run: docker-compose up &
-        env:
-          NGINX_DIR: ./config/for_ci_nginx
+        run: docker compose up &
 
       - name: test
         run: yarn test
