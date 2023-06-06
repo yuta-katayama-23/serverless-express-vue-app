@@ -34,7 +34,7 @@ jobs:
         run: yarn build:dev
 
       - name: docker compose up
-        run: docker compose up &
+        run: docker compose up -d
 
       - name: test
         run: yarn test
