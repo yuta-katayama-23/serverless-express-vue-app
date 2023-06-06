@@ -19,7 +19,7 @@ import createRoutes from './routes/index.js';
 import initModels from './models/init-models.js';
 
 const nodeEnv = process.env.NODE_ENV;
-const isDocker = process.env.IS_DOCKER;
+const isDocker = process.env.IS_DOCKER === 'true';
 if (nodeEnv === 'development') dotenv.config();
 
 const app = express();
