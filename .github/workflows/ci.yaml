@@ -16,6 +16,12 @@ jobs:
       name: ci
     env:
       NGINX_DIR: ./config/for_ci_nginx
+      CLIENT_ID: ${{ secrets.CLIENT_ID }}
+      CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+      REDIRECT_URI: ${{ secrets.REDIRECT_URI }}
+      COOKIE_SECRET: ${{ secrets.COOKIE_SECRET }}
+      GOOGLE_ACCOUNT_ID: ${{ secrets.GOOGLE_ACCOUNT_ID }}
+      GOOGLE_ACCOUNT_PASSWORD: ${{ secrets.GOOGLE_ACCOUNT_PASSWORD }}
 
     steps:
       - uses: actions/checkout@v3
