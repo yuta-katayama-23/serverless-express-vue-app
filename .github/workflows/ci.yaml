@@ -27,7 +27,12 @@ jobs:
         run: yarn lint
 
       - name: build
-        run: yarn build
+        run: yarn build:dev
+
+      - name: docker compose up
+        run: docker-compose up -d
+        env:
+          NGINX_DIR: ./config/for_ci_nginx
 
       - name: test
-        run: yarn vitest:lib
+        run: yarn test
