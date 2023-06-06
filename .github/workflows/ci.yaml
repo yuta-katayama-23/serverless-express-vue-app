@@ -12,8 +12,7 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-    environment:
-      name: ci
+    environment: ci
     env:
       NGINX_DIR: ./config/for_ci_nginx
       CLIENT_ID: ${{ secrets.CLIENT_ID }}
