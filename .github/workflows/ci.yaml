@@ -30,7 +30,7 @@ jobs:
         run: yarn build:dev
 
       - name: docker compose up
-        run: docker-compose up -d
+        run: docker-compose up &
         env:
           NGINX_DIR: ./config/for_ci_nginx
 
