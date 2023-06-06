@@ -82,6 +82,7 @@ const sequelize = new Sequelize(
 const { locals } = app;
 locals.nodeEnv = nodeEnv;
 locals.errors = { HttpError: CustomHttpError };
+console.log('process.env.REDIRECT_URI', process.env.REDIRECT_URI);
 locals.authClient = await CustomOpenidClient.init({
 	...config.get('auth'),
 	client_id: process.env.CLIENT_ID,
