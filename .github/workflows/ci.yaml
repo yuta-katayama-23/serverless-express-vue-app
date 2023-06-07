@@ -55,7 +55,9 @@ jobs:
         uses: cypress-io/github-action@v5
         # https://github.com/marketplace/actions/cypress-io#record-test-results-on-cypress-cloud
         with:
+          browser: chrome
           record: true
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          # https://docs.github.com/ja/actions/security-guides/automatic-token-authentication
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
