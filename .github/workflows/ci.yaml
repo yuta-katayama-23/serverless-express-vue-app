@@ -20,6 +20,7 @@ jobs:
       COOKIE_SECRET: ${{ secrets.COOKIE_SECRET }}
       GOOGLE_ACCOUNT_ID: ${{ secrets.GOOGLE_ACCOUNT_ID }}
       GOOGLE_ACCOUNT_PASSWORD: ${{ secrets.GOOGLE_ACCOUNT_PASSWORD }}
+      IS_CI: true
 
     steps:
       - uses: actions/checkout@v3

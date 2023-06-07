@@ -8,7 +8,7 @@ describe('Google login and get token', () => {
 			Cypress.on('uncaught:exception', (err) => false);
 			cy.get('#identifierId').type(Cypress.env('GOOGLE_ACCOUNT_ID'));
 			cy.get('button[jsname="LgbsSe"] span.VfPpkd-vQzf8d')
-				.contains(Cypress.env('IS_DOCKER') === 'true' ? 'Next' : '次へ')
+				.contains(Cypress.env('IS_CI') ? 'Next' : '次へ')
 				.click();
 
 			cy.wait(5000);
@@ -17,7 +17,7 @@ describe('Google login and get token', () => {
 				Cypress.env('GOOGLE_ACCOUNT_PASSWORD')
 			);
 			cy.get('button[jsname="LgbsSe"] span.VfPpkd-vQzf8d')
-				.contains(Cypress.env('IS_DOCKER') === 'true' ? 'Next' : '次へ')
+				.contains(Cypress.env('IS_CI') ? 'Next' : '次へ')
 				.click();
 		});
 
