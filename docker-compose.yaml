@@ -17,6 +17,12 @@ services:
       AWS_ACCESS_KEY_ID: dummy
       AWS_SECRET_ACCESS_KEY: dummy
       IS_DOCKER: 'true'
+      CLIENT_ID: ${CLIENT_ID}
+      CLIENT_SECRET: ${CLIENT_SECRET}
+      REDIRECT_URI: ${REDIRECT_URI}
+      COOKIE_SECRET: ${COOKIE_SECRET}
+      GOOGLE_ACCOUNT_ID: ${GOOGLE_ACCOUNT_ID}
+      GOOGLE_ACCOUNT_PASSWORD: ${GOOGLE_ACCOUNT_PASSWORD}
   nginx:
     image: nginx:latest
     container_name: nginx
