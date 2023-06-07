@@ -6,7 +6,7 @@ describe('Google login and get token', () => {
 		cy.origin('https://accounts.google.com/', () => {
 			// eslint-disable-next-line no-unused-vars
 			Cypress.on('uncaught:exception', (err) => false);
-			cy.get('#identifierId').type(Cypress.env('GOOGLE_ACCOUNT_ID'));
+			cy.get('input[type="email"]').type(Cypress.env('GOOGLE_ACCOUNT_ID'));
 			cy.get('button[jsname="LgbsSe"] span.VfPpkd-vQzf8d')
 				.contains(Cypress.env('IS_CI') ? 'Next' : '次へ')
 				.click();
