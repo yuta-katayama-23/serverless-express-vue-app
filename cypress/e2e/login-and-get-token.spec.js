@@ -7,16 +7,12 @@ describe('Google login and get token', () => {
 			// eslint-disable-next-line no-unused-vars
 			Cypress.on('uncaught:exception', (err) => false);
 			cy.get('input[type="email"]').type(Cypress.env('GOOGLE_ACCOUNT_ID'));
-			cy.get('button')
-				.contains(Cypress.env('IS_CI') ? 'Next' : '次へ')
-				.click();
+			cy.contains(Cypress.env('IS_CI') ? 'Next' : '次へ').click();
 
 			cy.wait(10000);
 
 			cy.get('#password input').type(Cypress.env('GOOGLE_ACCOUNT_PASSWORD'));
-			cy.get('button')
-				.contains(Cypress.env('IS_CI') ? 'Next' : '次へ')
-				.click();
+			cy.contains(Cypress.env('IS_CI') ? 'Next' : '次へ').click();
 		});
 
 		cy.wait(10000);
