@@ -11,11 +11,9 @@ describe('Google login and get token', () => {
 				.contains(Cypress.env('IS_CI') ? 'Next' : '次へ')
 				.click();
 
-			cy.wait(5000);
+			cy.wait(10000);
 
-			cy.get('#password input[type="password"]').type(
-				Cypress.env('GOOGLE_ACCOUNT_PASSWORD')
-			);
+			cy.get('#password input').type(Cypress.env('GOOGLE_ACCOUNT_PASSWORD'));
 			cy.get('button[jsname="LgbsSe"] span.VfPpkd-vQzf8d')
 				.contains(Cypress.env('IS_CI') ? 'Next' : '次へ')
 				.click();
