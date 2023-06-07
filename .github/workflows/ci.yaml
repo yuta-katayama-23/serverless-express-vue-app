@@ -57,6 +57,7 @@ jobs:
         with:
           browser: chrome
           record: true
+          headed: true
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           # https://docs.github.com/ja/actions/security-guides/automatic-token-authentication
