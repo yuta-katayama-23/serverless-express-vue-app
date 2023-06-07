@@ -2,6 +2,7 @@ import 'dotenv/config.js';
 import { defineConfig } from 'cypress';
 
 export default defineConfig({
+	projectId: 'x2ho7v',
 	pageLoadTimeout: 75000, // 70s
 	defaultCommandTimeout: 65000, // 65s
 	env: {

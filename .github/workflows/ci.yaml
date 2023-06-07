@@ -3,10 +3,10 @@ name: ci
 on:
   push:
     branches:
-      - main
-  pull_request:
-    branches:
       - '**'
+  # pull_request:
+  #   branches:
+  #     - '**'
   workflow_dispatch:
 
 jobs:
@@ -51,5 +51,11 @@ jobs:
       - name: docker logs express
         run: docker logs express
 
-      - name: test
-        run: yarn test
+      - name: Cypress run
+        uses: cypress-io/github-action@v5
+        # https://github.com/marketplace/actions/cypress-io#record-test-results-on-cypress-cloud
+        with:
+          record: true
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
