@@ -46,7 +46,7 @@ jobs:
         run: docker logs express
 
       - name: wait for nginx
-        run: docker run --network host --rm appropriate/curl --insecure --retry 10 --retry-connrefused --retry-delay 5 --retry-max-time 60 -v https://localhost
+        run: curl --insecure --retry 10 --retry-connrefused --retry-delay 5 --retry-max-time 60 -v https://localhost
 
       - name: docker logs express
         run: docker logs express
