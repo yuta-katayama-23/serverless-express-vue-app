@@ -87,7 +87,7 @@
 		"sass": "^1.62.1",
 		"sequelize-auto": "^0.8.8",
 		"serverless": "^3.31.0",
-		"serverless-offline": "^12.0.4",
+		"serverless-offline": "^13.3.2",
 		"simple-git-hooks": "^2.8.1",
 		"vite": "^4.3.8",
 		"vite-plugin-eslint": "^1.8.1",
